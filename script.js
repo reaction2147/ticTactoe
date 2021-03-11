@@ -1,29 +1,39 @@
-//factory function for player
+let gameBoard;
+const huPlayer = 'o';
+const aiPlayer = 'x';
+const winCombos = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [6,4,2],
+];
 
-const player = (name, marker) => {
-    return {name, marker,};
-  };
-  
-  const player1 = player('will', 'X');
-  const player2 = player('comp', 'O')
-  
-  console.log(player1.name);
-  
-  
-  // module function for gameboard
+const cells = document.querySelectorAll('.cell');
+startgame();
 
-  const gameBoard = (() => {
-    const gameboard = ['X', 'O', 'X', 'O'];
-    return {gameboard};
-  })();
+function startgame() {
+    document.querySelector('.endgame').style.display = "none";
+    gameBoard = Array.from(Array(9).keys());
+    for(i = 0; i < cells.length; i++) {
+        cells[i].innerText = '';
+        cells[i].style.removeProperty('background-color');
+        cells[i].addEventListener('click', turnClick, false);
+    }
+}
+
+function turnClick(square) {
+     turn(square.target.id, huPlayer)
+}
+
+function turn(squareId, player) {
+    gameBoard[squareId] = player;
+    document.getElementById(squareId).innerText = player;
+    
+}
 
 
-  // display the gameboard on the screen
 
-  const displayController = (() => {
-      const container = document.getElementById('gameContainer');
-      container.textContent = '';
-
-      
-
-  })();
